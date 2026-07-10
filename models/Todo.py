@@ -1,5 +1,5 @@
 class Todo:
-    def __init__(self , title , is_completed) -> None:
+    def __init__(self , title) -> None:
         self.title = title
         self.is_completed = False
 
