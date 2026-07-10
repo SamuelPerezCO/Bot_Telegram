@@ -31,6 +31,7 @@ class TodoController:
             return
         todo_list[index - 1].set_completed()
         await update.message.reply_text(f"La tarea {index} ha sido completada")
+        await TodoController.list_todo(update , context)
 
     @staticmethod
     async def clear_todos(update: Update, context: ContextTypes.DEFAULT_TYPE):
