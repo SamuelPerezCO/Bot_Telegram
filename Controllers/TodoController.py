@@ -20,7 +20,7 @@ class TodoController:
             return
         answer = ""
         for i , todo in enumerate(todo_list):
-            answer = answer + f"{i + 1} - {'O' if todo.is_completed else 'X'} {todo.title}"
+            answer = answer + f"{i + 1} - {'O' if todo.is_completed else 'X'} {todo.title} \n"
         await update.message.reply_text(answer)
 
     @staticmethod
