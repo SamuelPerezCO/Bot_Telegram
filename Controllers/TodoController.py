@@ -1,10 +1,12 @@
 from telegram import Update
-from telegram.ext import ContextTypes
+from telegram.ext import ContextTypes , ConversationHandler
 
 from Models.Todo import Todo
 from Models.TodoList import todo_list
 
 class TodoController:
+
+    GET_NAME , GET_LAST_NAME = range(2)
 
     @staticmethod
     async def add_todo(update: Update , context: ContextTypes.DEFAULT_TYPE):
@@ -49,12 +51,15 @@ class TodoController:
     @staticmethod
     async def ask_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Tell me your name: ")
+        return TodoController.GET_NAME
 
     @staticmethod
     async def get_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
         #Save name and ask for the last name
         await update.message.reply_text("Tell me your last name: ")
+        return TodoController.GET_LAST_NAME
 
     @staticmethod
     async def get_last_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Thank your data is...")
+        return ConversationHandler.END
