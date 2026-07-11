@@ -29,24 +29,24 @@ class TodoController:
     async def check_todo(update: Update , context: ContextTypes.DEFAULT_TYPE):
         index = int(context.args[0])
         if(index > len(todo_list) or index <= 0):
-            await update.message.reply_text("ERROR: esa tarea no existe")
+            await update.message.reply_text("ERROR: that task doesnt exist")
             return
         todo_list[index - 1].set_completed()
-        await update.message.reply_text(f"La tarea {index} ha sido completada")
+        await update.message.reply_text(f"The task {index} has been completed")
         await TodoController.list_todo(update , context)
 
     @staticmethod
     async def clear_todos(update: Update, context: ContextTypes.DEFAULT_TYPE):
         todo_list.clear()
-        await update.message.reply_text("Todas las tareas han sido borradas")
+        await update.message.reply_text("Clear")
 
     @staticmethod
     async def say_hello(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text("Conversacion Iniciada")
+        await update.message.reply_text("Conversation Iniatiated")
 
     @staticmethod
     async def send_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text("Has escrito un mensaje")
+        await update.message.reply_text("You write a message")
 
     @staticmethod
     async def ask_name(update: Update, context: ContextTypes.DEFAULT_TYPE):

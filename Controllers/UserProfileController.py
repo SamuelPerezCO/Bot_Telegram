@@ -7,20 +7,20 @@ class UserProfileController:
     
     @staticmethod
     async def start_getting_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text("Sign UP , Write your username: ")
-        return UserProfileController.USERNAME
+        await update.message.reply_text("Sign Up , Write your username: ")
+        return USERNAME
     
     @staticmethod
     async def get_username(update: Update, context: ContextTypes.DEFAULT_TYPE):
         context.user_data["username"] = update.message.text
         await update.message.reply_text("Perfect , Write your info")
-        return UserProfileController.INFO
+        return INFO
     
     @staticmethod
     async def get_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
         context.user_data["user_info"] = update.message.text
         await update.message.reply_text("Thank you! , can you send the profile picture?")
-        return UserProfileController.PHOTO
+        return PHOTO
     
     @staticmethod
     async def get_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
