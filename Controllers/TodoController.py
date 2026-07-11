@@ -45,3 +45,16 @@ class TodoController:
     @staticmethod
     async def send_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Has escrito un mensaje")
+
+    @staticmethod
+    async def ask_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text("Tell me your name: ")
+
+    @staticmethod
+    async def get_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        #Save name and ask for the last name
+        await update.message.reply_text("Tell me your last name: ")
+
+    @staticmethod
+    async def get_last_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text("Thank your data is...")
