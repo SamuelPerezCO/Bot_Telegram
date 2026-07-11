@@ -16,6 +16,6 @@ application.add_handler( CommandHandler("start" , TodoController.say_hello ) )
 application.add_handler( CommandHandler("check" , TodoController.check_todo ) )
 application.add_handler( CommandHandler("clear" , TodoController.clear_todos ) )
 
-application.add_handler( MessageHandler(filters.ALL , TodoController.send_message))
+application.add_handler( MessageHandler(filters.TEXT & ~filters.AUDIO, TodoController.send_message))
 
 application.run_polling(allowed_updates=Update.ALL_TYPES)
