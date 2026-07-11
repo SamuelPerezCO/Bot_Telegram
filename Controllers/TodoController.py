@@ -1,5 +1,5 @@
-from telegram import Update
-from telegram.ext import ContextTypes , ConversationHandler
+from telegram import Update , InlineKeyboardMarkup , InlineKeyboardButton
+from telegram.ext import ContextTypes , ConversationHandler , CallbackContext
 
 from Models.Todo import Todo
 from Models.TodoList import todo_list
@@ -42,7 +42,25 @@ class TodoController:
 
     @staticmethod
     async def say_hello(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text("Conversation Iniatiated")
+        keyboard = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(text="Say Hello" , callback_data="HI"),
+                InlineKeyboardButton(text="Say MEH" , callback_data="MEH"),
+                InlineKeyboardButton(text="Say 2" , callback_data="2")
+            ],
+            [InlineKeyboardButton(text = "Wikipedia" , url="www.wikipedia.com")],
+        ])
+        await update.message.reply_text("Hello World!" , reply_markup=keyboard )
+
+    @staticmethod
+    async def button_controller(update: Update, context: CallbackContext):
+        data = update.callback_query.data
+        if(data == "HI"):
+            await update.callback_query.message.edit_text("HI Hi HI" , reply_markup = None)
+            return 
+        await update.callback_query.answer( text = data , show_alert = True)
+        await update.callback_query.message.reply_text(data)
+        print(update.callback_query.data)
 
     @staticmethod
     async def send_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -69,3 +87,11 @@ class TodoController:
     async def cancel_conversation(update:Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Operacion Cancelada")
         return ConversationHandler.END
+    
+    @staticmethod
+    async def send_link(update:Update, context:ContextTypes.DEFAULT_TYPE):
+        button_name = context.args[0]
+        link = context.args[1]
+        keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(button_name, url=link)]])
+        await update.message.reply_text("go to this Website" , reply_markup=keyboard)
+        pass
