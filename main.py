@@ -18,10 +18,10 @@ application.add_handler( CommandHandler("clear" , TodoController.clear_todos ) )
 info_conversation_handler = ConversationHandler(
     entry_points=[ CommandHandler("data" , TodoController.ask_name)],
     states={
-        TodoController.GET_NAME: [ MessageHandler(filters.TEXT & ~filters.COMMAND, TodoController.get_name) ],
-        TodoController.GET_LAST_NAME: [ MessageHandler(filters.TEXT & ~filters.COMMAND, TodoController.get_last_name) ],
+        TodoController.GET_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, TodoController.get_name)],
+        TodoController.GET_LAST_NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND , TodoController.get_last_name)]
     },
-    fallbacks=[]
+    fallbacks=[ CommandHandler("cancel" , TodoController.cancel_conversation)]
 )
 application.add_handler(info_conversation_handler)
 
