@@ -15,6 +15,7 @@ application.add_handler( CommandHandler("list" , TodoController.list_todo ) )
 application.add_handler( CommandHandler("start" , TodoController.say_hello ) )
 application.add_handler( CommandHandler("check" , TodoController.check_todo ) )
 application.add_handler( CommandHandler("clear" , TodoController.clear_todos ) )
+
 info_conversation_handler = ConversationHandler(
     entry_points=[ CommandHandler("data" , TodoController.ask_name)],
     states={
@@ -23,6 +24,7 @@ info_conversation_handler = ConversationHandler(
     },
     fallbacks=[ CommandHandler("cancel" , TodoController.cancel_conversation)]
 )
+
 application.add_handler(info_conversation_handler)
 
 application.add_handler( MessageHandler(filters.TEXT & ~filters.COMMAND, TodoController.send_message))
