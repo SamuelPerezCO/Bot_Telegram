@@ -36,9 +36,9 @@ class UserProfileController:
 user_profile_controller_conversation_handler = ConversationHandler(
     entry_points=[CommandHandler("profile" , UserProfileController.start_getting_info)],
     states={
-        USERNAME: [MessageHandler(filters.TEXT , UserProfileController.get_username)],
-        INFO: [MessageHandler(filters.TEXT , UserProfileController.get_info)],
-        PHOTO: [MessageHandler(filters.TEXT , UserProfileController.get_photo)]
+        USERNAME: [MessageHandler(filters.TEXT & ~filters.COMMAND , UserProfileController.get_username)],
+        INFO: [MessageHandler(filters.TEXT & ~filters.COMMAND , UserProfileController.get_info)],
+        PHOTO: [MessageHandler(filters.TEXT & ~filters.COMMAND , UserProfileController.get_photo)]
     },
     fallbacks=[MessageHandler(filters.COMMAND , UserProfileController.cancel_operation)]
 )
