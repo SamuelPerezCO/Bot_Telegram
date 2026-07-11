@@ -55,11 +55,17 @@ class TodoController:
 
     @staticmethod
     async def get_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        #Save name and ask for the last name
+        context.user_data["name"] = update.message.text
         await update.message.reply_text("Tell me your last name: ")
         return TodoController.GET_LAST_NAME
 
     @staticmethod
     async def get_last_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text("Thank your data is...")
+        context.user_data["last_name"] = update.message.text
+        await update.message.reply_text(f"Thank your data is name: {context.user_data['name']} \nAnd your last name is: {context.user_data['last_name']}")
+        return ConversationHandler.END
+    
+    @staticmethod
+    async def cancel_conversation(update:Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text("Operacion Cancelada")
         return ConversationHandler.END
