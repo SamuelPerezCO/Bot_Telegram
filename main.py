@@ -1,4 +1,4 @@
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes , MessageHandler , filters
 from dotenv import load_dotenv
 from telegram import Update
 import os
@@ -12,7 +12,10 @@ application = ApplicationBuilder().token(BOT_TOKEN).build()
 
 application.add_handler( CommandHandler("add" , TodoController.add_todo ) )
 application.add_handler( CommandHandler("list" , TodoController.list_todo ) )
+application.add_handler( CommandHandler("start" , TodoController.say_hello ) )
 application.add_handler( CommandHandler("check" , TodoController.check_todo ) )
-application.add_handler( CommandHandler("clear" , TodoController.clear_todos))
+application.add_handler( CommandHandler("clear" , TodoController.clear_todos ) )
+
+application.add_handler( MessageHandler(filters.ALL , TodoController.send_message))
 
 application.run_polling(allowed_updates=Update.ALL_TYPES)
