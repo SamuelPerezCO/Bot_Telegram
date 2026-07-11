@@ -37,3 +37,11 @@ class TodoController:
     async def clear_todos(update: Update, context: ContextTypes.DEFAULT_TYPE):
         todo_list.clear()
         await update.message.reply_text("Todas las tareas han sido borradas")
+
+    @staticmethod
+    async def say_hello(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text("Conversacion Iniciada")
+
+    @staticmethod
+    async def send_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text("Has escrito un mensaje")
