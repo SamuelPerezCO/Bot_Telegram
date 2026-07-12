@@ -1,4 +1,4 @@
-from telegram import Update , InlineKeyboardMarkup , InlineKeyboardButton
+from telegram import Update , ReplyKeyboardRemove ,InlineKeyboardMarkup , InlineKeyboardButton , KeyboardButton , ReplyKeyboardMarkup
 from telegram.ext import ContextTypes , ConversationHandler , CallbackContext
 
 from Models.Todo import Todo
@@ -40,17 +40,32 @@ class TodoController:
         todo_list.clear()
         await update.message.reply_text("Clear")
 
+    # @staticmethod
+    # async def say_hello(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    #     keyboard = InlineKeyboardMarkup([
+    #         [
+    #             InlineKeyboardButton(text="Say Hello" , callback_data="HI"),
+    #             InlineKeyboardButton(text="Say MEH" , callback_data="MEH"),
+    #             InlineKeyboardButton(text="Say 2" , callback_data="2")
+    #         ],
+    #         [InlineKeyboardButton(text = "Wikipedia" , url="www.wikipedia.com")],
+    #     ])
+    #     await update.message.reply_text("Hello World!" , reply_markup=keyboard )
+
     @staticmethod
     async def say_hello(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        keyboard = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(text="Say Hello" , callback_data="HI"),
-                InlineKeyboardButton(text="Say MEH" , callback_data="MEH"),
-                InlineKeyboardButton(text="Say 2" , callback_data="2")
-            ],
-            [InlineKeyboardButton(text = "Wikipedia" , url="www.wikipedia.com")],
+        keyboard = ReplyKeyboardMarkup([
+            [KeyboardButton("Hi") , KeyboardButton("Hi")],
+            [KeyboardButton("Goodbye")]
         ])
-        await update.message.reply_text("Hello World!" , reply_markup=keyboard )
+        await update.message.reply_text("Keyboard was sent" , reply_markup=keyboard)
+
+    @staticmethod
+    async def greeting_or_goodbye(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        if update.message.text == "Hi":
+            await update.message.reply_text("How are you?" , reply_markup=ReplyKeyboardRemove())
+        else:    
+            await update.message.reply_sticker("CAACAgQAAxkBAAICSGWeGvLgwzuR2t9zGQKSFnbOxS0eAAJECQAClA3oUkxe1gvtNZKVNAQ", reply_markup=ReplyKeyboardRemove())
 
     @staticmethod
     async def button_controller(update: Update, context: CallbackContext):

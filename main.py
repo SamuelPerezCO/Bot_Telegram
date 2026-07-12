@@ -31,6 +31,7 @@ info_conversation_handler = ConversationHandler(
 
 application.add_handler(info_conversation_handler)
 application.add_handler(user_profile_controller_conversation_handler)
+application.add_handler( MessageHandler(filters.Text(["Hi", "Goodbye"]), TodoController.greeting_or_goodbye))
 
 application.add_handler( MessageHandler(filters.TEXT & ~filters.COMMAND, TodoController.send_message))
 
